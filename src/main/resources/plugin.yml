@@ -1,0 +1,39 @@
+name: WynboxTrade
+version: '1.0-SNAPSHOT'
+main: fr.wynbox.trade.WynboxTrade
+api-version: '1.20'
+authors: [TikOf]
+description: Plugin de trade pour Minecraft
+softdepend: [Vault]
+
+commands:
+  trade:
+    description: Commande principale pour échanger avec un joueur
+    usage: /trade <joueur>
+    aliases: [t]
+  tradeaccept:
+    description: Accepter une demande d'échange
+    usage: /tradeaccept [joueur]
+    aliases: [taccept]
+  tradedeny:
+    description: Refuser une demande d'échange
+    usage: /tradedeny [joueur]
+    aliases: [tdeny]
+
+permissions:
+  wynbox.trade:
+    description: Permission pour utiliser la commande /trade
+    default: true
+  wynbox.trade.money:
+    description: Permission pour utiliser la fonction d'argent dans les trades
+    default: true
+  wynbox.trade.bypass.distance:
+    description: Permission pour ignorer la distance maximale de trade
+    default: op
+  wynbox.trade.admin:
+    description: Permission pour toutes les commandes administratives
+    default: op
+    children:
+      wynbox.trade: true
+      wynbox.trade.money: true
+      wynbox.trade.bypass.distance: true

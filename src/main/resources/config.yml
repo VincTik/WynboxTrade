@@ -1,0 +1,88 @@
+# WynboxTrade Configuration
+
+# Configuration de l'interface
+gui:
+  title: "§8Trade: %player%"
+  size: 54 # Taille de l'inventaire (multiples de 9)
+  separator-material: GRAY_STAINED_GLASS_PANE
+  player1-start-slot: 0
+  player1-end-slot: 17
+  player2-start-slot: 27
+  player2-end-slot: 44
+  player1-status-slot: 18
+  player2-status-slot: 26
+  accept-slot: 45
+  decline-slot: 53
+  money-slot: 49
+  money-enabled: true
+
+# Configuration des boutons
+buttons:
+  accept:
+    material: LIME_CONCRETE
+    name: "§aAccepter"
+    lore:
+      - "§7Cliquez pour accepter le trade"
+    accepted-material: EMERALD_BLOCK
+    accepted-name: "§aAccepté !"
+  decline:
+    material: RED_CONCRETE
+    name: "§cRefuser"
+    lore:
+      - "§7Cliquez pour refuser le trade"
+  money:
+    material: GOLD_INGOT
+    name: "§6Argent: §e%amount%"
+  status:
+    ready:
+      material: LIME_STAINED_GLASS_PANE
+      name: "§aPrêt"
+    not-ready:
+      material: RED_STAINED_GLASS_PANE
+      name: "§cPas prêt"
+
+# Configuration du trade
+trade:
+  countdown: 5 # Durée du compte à rebours en secondes
+  max-distance: 10 # Distance maximale entre les joueurs pour trader
+  sound-enabled: true
+
+# Configuration des sons
+sounds:
+  countdown:
+    enabled: true
+    sound: BLOCK_NOTE_BLOCK_PLING
+    volume: 1.0
+    pitch: 1.0
+  trade-complete:
+    enabled: true
+    sound: ENTITY_PLAYER_LEVELUP
+    volume: 1.0
+    pitch: 1.0
+  trade-cancelled:
+    enabled: true
+    sound: ENTITY_VILLAGER_NO
+    volume: 1.0
+    pitch: 1.0
+
+# Messages
+messages:
+  prefix: "§8[§6Trade§8] "
+  trade-request-sent: "§aVous avez envoyé une demande d'échange à %player%"
+  trade-request-received: "§a%player% souhaite échanger avec vous"
+  trade-request-expired: "§cLa demande d'échange a expiré"
+  trade-request-accepted: "§aLa demande d'échange a été acceptée"
+  trade-request-denied: "§cLa demande d'échange a été refusée"
+  trade-cancelled: "§cL'échange a été annulé"
+  trade-completed: "§aL'échange a été effectué avec succès"
+  player-too-far: "§cLe joueur est trop loin"
+  player-not-found: "§cJoueur introuvable"
+  cannot-trade-with-self: "§cVous ne pouvez pas échanger avec vous-même"
+  countdown: "§eL'échange sera effectué dans §6%time% §eseconde(s)"
+
+# Configuration des logs
+logs:
+  enabled: true
+  format: "[%date%] %player1% a échangé avec %player2%"
+  date-format: "dd/MM/yyyy HH:mm:ss"
+  file: "trades.log"
