@@ -79,6 +79,12 @@ messages:
   player-not-found: "§cJoueur introuvable"
   cannot-trade-with-self: "§cVous ne pouvez pas échanger avec vous-même"
   countdown: "§eL'échange sera effectué dans §6%time% §eseconde(s)"
+  no-pending-request: "§cVous n'avez aucune demande d'échange en attente."
+  no-request-from-player: "§cVous n'avez pas de demande d'échange de la part de %player%."
+  trade-accepted: "§a%player% a accepté votre demande d'échange !"
+  you-accepted-trade: "§aVous avez accepté la demande d'échange de %player% !"
+  trade-denied: "§c%player% a refusé votre demande d'échange."
+  you-denied-trade: "§cVous avez refusé la demande d'échange de %player%."
 
 # Configuration des logs
 logs:

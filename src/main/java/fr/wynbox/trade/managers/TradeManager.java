@@ -51,6 +51,81 @@ public class TradeManager {
             () -> cancelRequest(senderUUID), 20L * 30);
     }
 
+    public void acceptTradeRequest(Player player, Player requester) {
+        if (requester == null) {
+            // Si aucun joueur n'est spécifié, chercher une requête active
+            TradeRequest pendingRequest = findPendingRequest(player.getUniqueId());
+            if (pendingRequest == null) {
+                player.sendMessage(plugin.getConfigManager().getMessage("no-pending-request"));
+                return;
+            }
+            requester = pendingRequest.getSender();
+        }
+
+        UUID requesterUUID = requester.getUniqueId();
+        TradeRequest request = activeRequests.get(requesterUUID);
+
+        if (request == null || !request.getTarget().getUniqueId().equals(player.getUniqueId())) {
+            player.sendMessage(plugin.getConfigManager().getMessage("no-request-from-player")
+                    .replace("%player%", requester.getName()));
+            return;
+        }
+
+        // Supprimer la requête
+        activeRequests.remove(requesterUUID);
+
+        // Ouvrir l'interface de trade pour les deux joueurs
+        plugin.getGuiManager().openTradeGUI(requester, player);
+        plugin.getGuiManager().openTradeGUI(player, requester);
+
+        // Enregistrer le trade actif
+        activeTrades.put(requesterUUID, player.getUniqueId());
+        activeTrades.put(player.getUniqueId(), requesterUUID);
+
+        // Envoyer les messages
+        requester.sendMessage(plugin.getConfigManager().getMessage("trade-accepted")
+                .replace("%player%", player.getName()));
+        player.sendMessage(plugin.getConfigManager().getMessage("you-accepted-trade")
+                .replace("%player%", requester.getName()));
+    }
+
+    public void denyTradeRequest(Player player, Player requester) {
+        if (requester == null) {
+            // Si aucun joueur n'est spécifié, chercher une requête active
+            TradeRequest pendingRequest = findPendingRequest(player.getUniqueId());
+            if (pendingRequest == null) {
+                player.sendMessage(plugin.getConfigManager().getMessage("no-pending-request"));
+                return;
+            }
+            requester = pendingRequest.getSender();
+        }
+
+        UUID requesterUUID = requester.getUniqueId();
+        TradeRequest request = activeRequests.get(requesterUUID);
+
+        if (request == null || !request.getTarget().getUniqueId().equals(player.getUniqueId())) {
+            player.sendMessage(plugin.getConfigManager().getMessage("no-request-from-player")
+                    .replace("%player%", requester.getName()));
+            return;
+        }
+
+        // Supprimer la requête
+        activeRequests.remove(requesterUUID);
+
+        // Envoyer les messages
+        requester.sendMessage(plugin.getConfigManager().getMessage("trade-denied")
+                .replace("%player%", player.getName()));
+        player.sendMessage(plugin.getConfigManager().getMessage("you-denied-trade")
+                .replace("%player%", requester.getName()));
+    }
+
+    private TradeRequest findPendingRequest(UUID playerUUID) {
+        return activeRequests.values().stream()
+                .filter(request -> request.getTarget().getUniqueId().equals(playerUUID))
+                .findFirst()
+                .orElse(null);
+    }
+
     public boolean canTrade(Player sender, Player target) {
         // Check permissions
         if (!sender.hasPermission("wynbox.trade")) {

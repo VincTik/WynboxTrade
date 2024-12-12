@@ -9,16 +9,11 @@ softdepend: [Vault]
 commands:
   trade:
     description: Commande principale pour échanger avec un joueur
-    usage: /trade <joueur>
+    usage: |
+      §e/trade <joueur> §7- Envoyer une demande d'échange
+      §e/trade accept [joueur] §7- Accepter une demande d'échange
+      §e/trade deny [joueur] §7- Refuser une demande d'échange
     aliases: [t]
-  tradeaccept:
-    description: Accepter une demande d'échange
-    usage: /tradeaccept [joueur]
-    aliases: [taccept]
-  tradedeny:
-    description: Refuser une demande d'échange
-    usage: /tradedeny [joueur]
-    aliases: [tdeny]
 
 permissions:
   wynbox.trade:

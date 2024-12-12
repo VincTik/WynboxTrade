@@ -1,7 +1,5 @@
 package fr.wynbox.trade;
 
-import fr.wynbox.trade.commands.TradeAcceptCommand;
-import fr.wynbox.trade.commands.TradeDenyCommand;
 import fr.wynbox.trade.commands.TradeCommand;
 import fr.wynbox.trade.listeners.TradeListener;
 import fr.wynbox.trade.managers.ConfigManager;
@@ -30,10 +28,8 @@ public final class WynboxTrade extends JavaPlugin {
         this.economyManager = new EconomyManager(this);
         this.tradeLogger = new TradeLogger(this);
 
-        // Enregistrement des commandes
+        // Enregistrement de la commande
         getCommand("trade").setExecutor(new TradeCommand(this));
-        getCommand("tradeaccept").setExecutor(new TradeAcceptCommand(this));
-        getCommand("tradedeny").setExecutor(new TradeDenyCommand(this));
 
         // Enregistrement des listeners
         getServer().getPluginManager().registerEvents(new TradeListener(this), this);
@@ -50,7 +46,7 @@ public final class WynboxTrade extends JavaPlugin {
         }
 
         // Message d'arrêt
-        getLogger().info("WynboxTrade a été désactivé !");
+        getLogger().info("WynboxTrade a été désactivé avec succès !");
     }
 
     public ConfigManager getConfigManager() {
